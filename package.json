@@ -1,0 +1,30 @@
+{
+  "name": "genesis_bot",
+  "version": "0.5.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "author": "Genesis",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "better-sqlite3": "^12.10.0",
+    "canvas": "^3.2.3",
+    "discord.js": "^14.26.4",
+    "dotenv": "^16.6.1",
+    "graphql-request": "^6.1.0",
+    "nodemon": "^3.0.1",
+    "tsx": "^4.22.3"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.9.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  }
+}
