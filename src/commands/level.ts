@@ -1,4 +1,4 @@
-import { AttachmentBuilder, MessageFlags, SlashCommandBuilder } from "discord.js";
+import { AttachmentBuilder, MessageFlags, SlashCommandBuilder, SlashCommandUserOption } from "discord.js";
 import { xpService } from "../services/xpService";
 import { createLevelCard } from "../utils/levelCard";
 import type { SlashCommand } from "../types/command";
@@ -6,7 +6,12 @@ import type { SlashCommand } from "../types/command";
 export const levelCommand: SlashCommand = {
   data: new SlashCommandBuilder()
     .setName("level")
-    .setDescription("Mostra o teu nivel atual e o XP que falta para o proximo nivel."),
+    .setDescription("Mostra o teu nivel atual e o XP que falta para o proximo nivel.")
+    .addUserOption(option =>
+      option.setName("membro")
+        .setDescription("O membro para pesquisar")
+        .setRequired(false)
+    ),
 
   async execute(interaction) {
     await interaction.deferReply();
@@ -17,10 +22,11 @@ export const levelCommand: SlashCommand = {
       return;
     }
 
-    const progress = xpService.getLevelInfo(interaction.guildId, interaction.user.id);
+    const user = interaction.options.getUser("membro") ?? interaction.user;
+    const progress = xpService.getLevelInfo(interaction.guildId, user.id);
     const image = await createLevelCard({
-      username: interaction.user.tag,
-      avatarUrl: interaction.user.displayAvatarURL({ extension: "jpg", size: 256 }),
+      username: user.tag,
+      avatarUrl: user.displayAvatarURL({ extension: "jpg", size: 256 }),
       text: progress.text,
       voice: progress.voice,
     });
