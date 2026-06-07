@@ -4,7 +4,7 @@ import { pathToFileURL } from "node:url";
 import type { Client } from "discord.js";
 
 
-export async function loadEvents(client: Client){
+export async function loadEvents(client: Client) {
   const eventsPath = join(__dirname, "..", "events");
   const eventFiles = readdirSync(eventsPath, { withFileTypes: true })
     .filter((entry) => entry.isFile())
@@ -15,7 +15,7 @@ export async function loadEvents(client: Client){
     const eventName = basename(file, extname(file));
     const eventPath = join(eventsPath, file);
     const eventModule = await import(pathToFileURL(eventPath).href);
-    const eventHandler = eventModule.default;
+    const eventHandler = eventModule.default!.default ?? eventModule.default;
 
     if (!eventHandler) {
       console.warn(`Handler não encontrado.`);

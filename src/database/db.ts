@@ -2,7 +2,7 @@ import { mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import Database from "better-sqlite3";
 
-const dbPath = join(process.cwd(), "bot.db");
+const dbPath = join(process.cwd(), "data/bot.db");
 
 mkdirSync(dirname(dbPath), { recursive: true });
 
