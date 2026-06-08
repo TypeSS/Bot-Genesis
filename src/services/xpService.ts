@@ -202,9 +202,10 @@ function buildProgress(totalXp: number): LevelInfo {
 
 function getLevelInfo(guildId: string, userId: string) {
   const userXp = xpDb.getUserXp(guildId, userId);
+  const userPendingXp = textSessions.get(`${guildId}:${userId}`)?.xpPending ?? 0;
 
   return {
-    text: buildProgress(userXp.textXp),
+    text: buildProgress(userXp.textXp + userPendingXp),
     voice: buildProgress(userXp.voiceXp),
   };
 }
