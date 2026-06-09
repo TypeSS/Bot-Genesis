@@ -23,12 +23,14 @@ export const levelCommand: SlashCommand = {
     }
 
     const user = interaction.options.getUser("membro") ?? interaction.user;
+    const member = interaction.guild?.members.fetch(user.id);
     const progress = xpService.getLevelInfo(interaction.guildId, user.id);
     const image = await createLevelCard({
       username: user.tag,
       avatarUrl: user.displayAvatarURL({ extension: "jpg", size: 256 }),
       text: progress.text,
       voice: progress.voice,
+      color: (await member)?.displayHexColor ?? "#fff",
     });
 
     const attachment = new AttachmentBuilder(image, { name: "level.png" });
