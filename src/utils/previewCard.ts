@@ -20,7 +20,7 @@ async function run() {
     color: "#FF0000"
   });
 
-  writeFileSync("preview.png", buffer);
+  writeFileSync("src/utils/preview.png", buffer);
 }
 
 run();
