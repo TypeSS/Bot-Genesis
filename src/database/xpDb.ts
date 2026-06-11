@@ -17,6 +17,17 @@ const createUserXpStatement = db.prepare(`
   VALUES (?, ?, 0, 0, ?)
 `);
 
+const setTextXpStatement = db.prepare(`
+  UPDATE user_xp
+  SET text_xp = ?, updated_at = ?
+  WHERE guild_id = ? AND user_id = ?
+`);
+
+const setVoiceXpStatement = db.prepare(`
+  UPDATE user_xp
+  SET voice_xp = ?, updated_at = ?
+  WHERE guild_id = ? AND user_id = ?
+`);
 const addTextXpStatement = db.prepare(`
   UPDATE user_xp
   SET text_xp = text_xp + ?, updated_at = ?
@@ -38,6 +49,14 @@ function getUserXp(guildId: string, userId: string): UserXp {
   };
 }
 
+function setXp(guildId: string, userId: string, amount: number, source: XpSource): UserXp {
+  createUserXpStatement.run(guildId, userId, Date.now());
+
+  source === "text" ? setTextXpStatement.run(amount, Date.now(), guildId, userId) : setVoiceXpStatement.run(amount, Date.now(), guildId, userId);
+
+  return getUserXp(guildId, userId);
+}
+
 function addXp(guildId: string, userId: string, amount: number, source: XpSource): UserXp {
   createUserXpStatement.run(guildId, userId, Date.now());
 
@@ -53,4 +72,5 @@ function addXp(guildId: string, userId: string, amount: number, source: XpSource
 export const xpDb = {
   getUserXp,
   addXp,
+  setXp
 };

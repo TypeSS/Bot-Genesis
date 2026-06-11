@@ -2,6 +2,7 @@ import { GuildMember, SlashCommandBuilder } from "discord.js";
 import { SlashCommand } from "../types/command";
 import { xpDb } from "../database/xpDb";
 import { XpSource } from "../types/xp";
+import { ErrorMessage } from "../constants/errormessages";
 
 export const addXpCommand: SlashCommand = {
   data: new SlashCommandBuilder()
@@ -32,11 +33,11 @@ export const addXpCommand: SlashCommand = {
     const type = interaction.options.getString("tipo") ?? "text";
 
     if (!(interaction.member as GuildMember).roles.cache.has("1504146567924551722")) {
-      interaction.reply({ content: "Sai daqui pa nao podes usar isto", ephemeral: true })
+      interaction.reply({ content: ErrorMessage.NOT_ALLOWED, ephemeral: true })
       return;
     }
     if (!interaction.guildId) {
-      interaction.reply({ content: "Erro, tenta de novo.", ephemeral: true });
+      interaction.reply({ content: ErrorMessage.GENERIC_ERROR, ephemeral: true });
       return;
     }
     xpDb.addXp(
@@ -46,6 +47,6 @@ export const addXpCommand: SlashCommand = {
       type as XpSource
     )
     interaction.reply(
-      { content: `Adicionaste \`${xpAmount}\`xp a ${user.displayName}` });
+      { content: `${xpAmount} XP atribuído a ${user.displayName}` });
   }
 }

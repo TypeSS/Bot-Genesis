@@ -2,6 +2,7 @@ import { AttachmentBuilder, MessageFlags, SlashCommandBuilder, SlashCommandUserO
 import { xpService } from "../services/xpService";
 import { createLevelCard } from "../utils/levelCard";
 import type { SlashCommand } from "../types/command";
+import { ErrorMessage } from "../constants/errormessages";
 
 export const levelCommand: SlashCommand = {
   data: new SlashCommandBuilder()
@@ -17,7 +18,7 @@ export const levelCommand: SlashCommand = {
     await interaction.deferReply();
     if (!interaction.guildId) {
       await interaction.editReply({
-        content: "Tenta outra vez.",
+        content: ErrorMessage.GENERIC_ERROR,
       });
       return;
     }

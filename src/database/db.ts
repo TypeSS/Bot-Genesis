@@ -20,3 +20,12 @@ db.exec(`
     PRIMARY KEY (guild_id, user_id)
   )
 `);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS level_roles (
+    guild_id TEXT NOT NULL,
+    level INTEGER NOT NULL,
+    role_id TEXT NOT NULL,
+    PRIMARY KEY (guild_id, level)
+  )
+`);
