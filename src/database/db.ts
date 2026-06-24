@@ -16,6 +16,7 @@ db.exec(`
     user_id TEXT NOT NULL,
     text_xp INTEGER NOT NULL DEFAULT 0,
     voice_xp INTEGER NOT NULL DEFAULT 0,
+    has_leveled_up BOOLEAN NOT NULL DEFAULT FALSE,
     updated_at INTEGER NOT NULL,
     PRIMARY KEY (guild_id, user_id)
   )

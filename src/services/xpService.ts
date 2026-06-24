@@ -34,7 +34,10 @@ async function closeTextSession(session: TextSession, completed: boolean) {
   textSessions.delete(`${session.guildId}:${session.userId}`);
 
   if (xpAmount > 0) {
+    const oldLevel = calculateLevel(xpDb.getUserXp(session.guildId, session.userId).textXp);
     await addXpToUser(session.guildId, session.userId, xpAmount, "text");
+    const newLevel = calculateLevel(xpDb.getUserXp(session.guildId, session.userId).textXp);
+    if (newLevel > oldLevel) xpDb.setLeveledUp(true, session.guildId, session.userId);
   }
 }
 
@@ -162,12 +165,7 @@ async function processVoiceStateUpdate(oldState: VoiceState, newState: VoiceStat
   }
 }
 
-async function addXpToUser(
-  guildId: string,
-  userId: string,
-  amount: number,
-  source: XpSource,
-) {
+async function addXpToUser(guildId: string, userId: string, amount: number, source: XpSource) {
   const xpAmount = Math.max(Math.floor(amount), 0);
 
   if (xpAmount === 0) {

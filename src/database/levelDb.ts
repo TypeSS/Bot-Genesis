@@ -1,9 +1,9 @@
 import { db } from "./db";
 
 type LevelRow = {
-  role_id: string,
-  level: number
-}
+  role_id: string;
+  level: number;
+};
 
 const getRoleStatement = db.prepare(`
   SELECT role_id
@@ -11,12 +11,12 @@ const getRoleStatement = db.prepare(`
   WHERE guild_id = ? AND level <= ?
   ORDER BY level DESC
   LIMIT 1
-`)
+`);
 
 const addRoleStatement = db.prepare(`
   INSERT INTO level_roles (guild_id, level, role_id)
   VALUES (?, ?, ?)
-`)
+`);
 
 function getRoleByLevel(guild_id: string, level: number) {
   const row = getRoleStatement.get(guild_id, level) as LevelRow;
@@ -39,7 +39,7 @@ function getLevelByRoles(guild_id: string, roleIds: string[]) {
       AND role_id in (${placeholder})
     ORDER BY level DESC
     LIMIT 1
-  `)
+  `);
 
   const row = getLevelByRoleStatement.get(guild_id, ...roleIds) as LevelRow;
 
@@ -49,5 +49,5 @@ function getLevelByRoles(guild_id: string, roleIds: string[]) {
 export const levelDb = {
   getRoleByLevel,
   addRole,
-  getLevelByRoles
-}
+  getLevelByRoles,
+};

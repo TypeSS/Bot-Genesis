@@ -13,8 +13,8 @@ const getUserXpStatement = db.prepare(`
 `);
 
 const createUserXpStatement = db.prepare(`
-  INSERT OR IGNORE INTO user_xp (guild_id, user_id, text_xp, voice_xp, updated_at)
-  VALUES (?, ?, 0, 0, ?)
+  INSERT OR IGNORE INTO user_xp (guild_id, user_id, text_xp, voice_xp, has_leveled_up, updated_at)
+  VALUES (?, ?, 0, 0, false, ?)
 `);
 
 const setTextXpStatement = db.prepare(`
@@ -40,6 +40,29 @@ const addVoiceXpStatement = db.prepare(`
   WHERE guild_id = ? AND user_id = ?
 `);
 
+const setLeveledUpStatement = db.prepare(`
+    UPDATE user_xp
+    SET has_leveled_up = ?, updated_at = ?
+    WHERE guild_id = ? AND user_id = ?
+`);
+
+const getLeveledUpStatement = db.prepare(`
+    SELECT has_leveled_up 
+    FROM user_xp
+    WHERE guild_id = ? AND user_id = ?
+`);
+
+function setLeveledUp(hasLeveledUp: boolean, guildId: string, userId: string) {
+  setLeveledUpStatement.run(Number(hasLeveledUp), Date.now(), guildId, userId);
+}
+
+function hasLeveledUp(guildId: string, userId: string) {
+  const row = getLeveledUpStatement.get(guildId, userId) as
+    | { has_leveled_up?: boolean }
+    | undefined;
+  return row?.has_leveled_up;
+}
+
 function getUserXp(guildId: string, userId: string): UserXp {
   const row = getUserXpStatement.get(guildId, userId) as UserXpRow | undefined;
 
@@ -52,7 +75,9 @@ function getUserXp(guildId: string, userId: string): UserXp {
 function setXp(guildId: string, userId: string, amount: number, source: XpSource): UserXp {
   createUserXpStatement.run(guildId, userId, Date.now());
 
-  source === "text" ? setTextXpStatement.run(amount, Date.now(), guildId, userId) : setVoiceXpStatement.run(amount, Date.now(), guildId, userId);
+  source === "text"
+    ? setTextXpStatement.run(amount, Date.now(), guildId, userId)
+    : setVoiceXpStatement.run(amount, Date.now(), guildId, userId);
 
   return getUserXp(guildId, userId);
 }
@@ -72,5 +97,7 @@ function addXp(guildId: string, userId: string, amount: number, source: XpSource
 export const xpDb = {
   getUserXp,
   addXp,
-  setXp
+  setXp,
+  setLeveledUp,
+  hasLeveledUp,
 };
