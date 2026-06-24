@@ -14,7 +14,7 @@ const getUserXpStatement = db.prepare(`
 
 const createUserXpStatement = db.prepare(`
   INSERT OR IGNORE INTO user_xp (guild_id, user_id, text_xp, voice_xp, has_leveled_up, updated_at)
-  VALUES (?, ?, 0, 0, false, ?)
+  VALUES (?, ?, 0, 0, 0, ?)
 `);
 
 const setTextXpStatement = db.prepare(`
