@@ -1,6 +1,17 @@
 # Bot Genesis
 
+> [!IMPORTANT]
+> O bot ainda está numa fase inicial, pelo que pode apresentar alguns bugs inesperados. Se não estiver nos [Bugs Conhecidos](#bugs-conhecidos), abre um [issue](/issues)!
+
 Um bot multi-funções feito para o servidor [Genesis Portugal](https://discord.gg/5urQJ7GW7W), com o intuito de substituir bots pagos.
+
+---
+
+## Bugs Conhecidos
+
+Lista de bugs de que já temos conhecimento e estamos ativamente a trabalhar para resolver. Procura aqui antes de abrires um issue.
+
+- #4
 
 ---
 
@@ -10,6 +21,10 @@ Um bot multi-funções feito para o servidor [Genesis Portugal](https://discord.
 - Migração parcial de níveis de outros bots
 - ...
 
+---
+## Funcionalidades em Desenvolvimento
+
+- #6
 ---
 
 ## Stack Tecnológica
@@ -72,4 +87,4 @@ Podes ajudar o desenvolvimento do bot da Genesis encontrando ou resolvendo [prob
 
 ---
 
-  -# Feito pela equipa de desenvolvimento da Genesis Portugal, com ♥
+<sub> Feito pela equipa de desenvolvimento da Genesis Portugal, com ♥ </sub>
