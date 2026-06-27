@@ -11,7 +11,7 @@ Um bot multi-funções feito para o servidor [Genesis Portugal](https://discord.
 
 Lista de bugs de que já temos conhecimento e estamos ativamente a trabalhar para resolver. Procura aqui antes de abrires um [issue](https://github.com/TypeSS/Bot-Genesis/issues).
 
-- #4
+- [Valores de XP negativos](https://github.com/TypeSS/Bot-Genesis/issues/4)
 
 ---
 
@@ -24,7 +24,7 @@ Lista de bugs de que já temos conhecimento e estamos ativamente a trabalhar par
 ---
 ## Funcionalidades em Desenvolvimento
 
-- #6
+- [Comando de leaderboard](https://github.com/TypeSS/Bot-Genesis/issues/6)
 ---
 
 ## Stack Tecnológica
