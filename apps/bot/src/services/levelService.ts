@@ -1,7 +1,7 @@
 import { Message, TextChannel } from "discord.js";
-import { levelDb } from "../database/levelDb";
-import { xpDb } from "../database/xpDb";
-import { calculateLevel } from "../utils/xpCalculator";
+import { levelDb } from "@genesis/db";
+import { xpDb } from "@genesis/db";
+import { calculateLevel } from "@genesis/core";
 
 function handleLevelUpNotification(message: Message) {
   if (!message.guildId) return;

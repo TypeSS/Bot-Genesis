@@ -1,4 +1,4 @@
-import { AttachmentBuilder, MessageFlags, SlashCommandBuilder, SlashCommandUserOption } from "discord.js";
+import { AttachmentBuilder, SlashCommandBuilder } from "discord.js";
 import { xpService } from "../services/xpService";
 import { createLevelCard } from "../utils/levelCard";
 import type { SlashCommand } from "../types/command";
@@ -8,10 +8,8 @@ export const levelCommand: SlashCommand = {
   data: new SlashCommandBuilder()
     .setName("level")
     .setDescription("Mostra o teu nivel atual e o XP que falta para o proximo nivel.")
-    .addUserOption(option =>
-      option.setName("membro")
-        .setDescription("O membro para pesquisar")
-        .setRequired(false)
+    .addUserOption((option) =>
+      option.setName("membro").setDescription("O membro para pesquisar").setRequired(false),
     ),
 
   async execute(interaction) {

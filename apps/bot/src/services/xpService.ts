@@ -5,9 +5,9 @@ import {
   calculateTextCheckpointXp,
   calculateVoiceXp,
   calculateXpForLevel,
-} from "../utils/xpCalculator";
-import type { TextSession, UserXp, XpSource } from "../types/xp";
-import { xpDb } from "../database/xpDb";
+} from "@genesis/core";
+import type { TextSession, XpSource } from "@genesis/db";
+import { xpDb } from "@genesis/db";
 
 const TEXT_SESSION_DURATION_MS = 5 * 60000;
 const TEXT_CHECKPOINT_MS = 60000;

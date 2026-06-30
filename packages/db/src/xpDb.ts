@@ -1,5 +1,5 @@
 import { db } from "./db";
-import type { UserXp, XpSource } from "../types/xp";
+import type { UserXp, XpSource } from "./types/xp";
 
 type UserXpRow = {
   text_xp: number;

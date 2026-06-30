@@ -1,0 +1,40 @@
+import { GuildMember, SlashCommandBuilder } from "discord.js";
+import { SlashCommand } from "../types/command";
+import { xpDb } from "@genesis/db";
+import { type XpSource } from "@genesis/db";
+import { ErrorMessage } from "../constants/errormessages";
+
+export const addXpCommand: SlashCommand = {
+  data: new SlashCommandBuilder()
+    .setName("addxp")
+    .setDescription("Adiciona XP ao membro")
+    .addUserOption((input) =>
+      input.setName("membro").setDescription("Membro para adicionar XP").setRequired(true),
+    )
+    .addIntegerOption((input) =>
+      input.setName("xp").setDescription("XP a adicionar").setRequired(true),
+    )
+    .addStringOption((input) =>
+      input
+        .setName("tipo")
+        .setDescription("Tipo de XP")
+        .setRequired(false)
+        .addChoices({ name: "Texto", value: "text" }, { name: "Voice", value: "voice" }),
+    ),
+  async execute(interaction) {
+    const user = interaction.options.getUser("membro", true);
+    const xpAmount = interaction.options.getInteger("xp", true);
+    const type = interaction.options.getString("tipo") ?? "text";
+
+    if (!(interaction.member as GuildMember).roles.cache.has("1504146567924551722")) {
+      interaction.reply({ content: ErrorMessage.NOT_ALLOWED, ephemeral: true });
+      return;
+    }
+    if (!interaction.guildId) {
+      interaction.reply({ content: ErrorMessage.GENERIC_ERROR, ephemeral: true });
+      return;
+    }
+    xpDb.addXp(interaction.guildId, user.id, xpAmount, type as XpSource);
+    interaction.reply({ content: `${xpAmount} XP atribuído a ${user.displayName}` });
+  },
+};

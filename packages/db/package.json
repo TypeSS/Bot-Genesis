@@ -1,0 +1,12 @@
+{
+  "name": "@genesis/db",
+  "version": "0.5.0",
+  "main": "dist/index.js",
+  "dependencies": {
+    "@types/node": "^25.9.4",
+    "better-sqlite3": "^12.11.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13"
+  }
+}

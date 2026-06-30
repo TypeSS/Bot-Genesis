@@ -1,6 +1,8 @@
 services:
   bot:
-    build: .
+    build: 
+      context: .
+      dockerfile: apps/bot/Dockerfile
     restart: unless-stopped
     environment:
       TOKEN: ${TOKEN}
