@@ -1,0 +1,44 @@
+import Image from "next/image";
+import { FaDiscord } from "react-icons/fa";
+import { signIn } from "./auth";
+import bg_tex from "../assets/bg_tex.jpg";
+import logo from "../assets/genesisportugal_logo.svg";
+import TopBar from "./_components/topbar";
+import DiscordLogin from "./_components/discordlogin";
+import DashboardButton from "./_components/dashboardbutton";
+import LoggedIn from "./_components/LoggedIn";
+
+export default function Home() {
+  return (
+    <div className="flex h-screen items-center mx-30">
+      <TopBar />
+      <Image
+        src={bg_tex}
+        alt="background texture"
+        className="inset-0 top-0 left-0 right-0 bottom-0 absolute w-screen h-screen object-cover opacity-3 -z-500"
+      />
+      <Image
+        src={logo}
+        alt="genesis portugal logo"
+        className="right-30 absolute w-auto h-120 object-cover pointer-events-none"
+      />
+      <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-8">
+          <h1 className="text-5xl font-sans font-bold">
+            100% português.
+            <br />
+            100% open source.
+          </h1>
+          <p className="font-mono text-[#AAA]">
+            O genesis.bot é um bot FOSS multi-funções
+            <br />
+            criado e mantido por membros da comunidade
+            <br />
+            Genesis Portugal.
+          </p>
+        </div>
+        <LoggedIn is={<DashboardButton />} isnot={<DiscordLogin />} />
+      </div>
+    </div>
+  );
+}

@@ -6,6 +6,8 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "pnpm -r dev"
+    "dev": "pnpm -r dev",
+    "bot:dev": "pnpm --filter @genesis/bot dev",
+    "dashboard:dev": "pnpm --filter @genesis/dashboard dev"
   }
 }
