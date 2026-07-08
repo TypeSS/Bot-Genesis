@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { Syne, JetBrains_Mono, Inter } from "next/font/google";
+import { Syne, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import TopBar from "./_components/topbar";
 import { cn } from "@/lib/utils";
-
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 const syne = Syne({
   variable: "--font-syne",
@@ -28,9 +27,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", "dark", syne.variable, jetbrainsMono.variable, "font-sans", inter.variable)}
+      className={cn("h-full", "antialiased", "dark", syne.variable, jetbrainsMono.variable)}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <TopBar />
+        <main className="mt-20">{children}</main>
+      </body>
     </html>
   );
 }

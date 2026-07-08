@@ -3,8 +3,7 @@ import { auth, signOut } from "../auth";
 import DiscordLogin from "./discordlogin";
 import LoggedIn from "./LoggedIn";
 import { HiOutlineLogout } from "react-icons/hi";
-
-import { Button } from "@/components/ui/button";
+import { TbLayoutDashboard } from "react-icons/tb";
 
 import {
   DropdownMenu,
@@ -13,7 +12,9 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 export default async function Profile() {
   const session = await auth();
@@ -33,6 +34,11 @@ export default async function Profile() {
           <DropdownMenuContent className="w-40" align="end">
             <DropdownMenuGroup>
               <DropdownMenuLabel>A Minha Conta</DropdownMenuLabel>
+              <DropdownMenuItem className="hover:cursor-pointer">
+                <TbLayoutDashboard />
+                <Link href="/dashboard">Dashboard</Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem
                 variant="destructive"
                 onClick={async () => {

@@ -7,7 +7,7 @@ export default function DashboardButton() {
       <Link
         className="font-mono bg-[#0f0f0f] border-[#242424] border rounded pr-4 pl-2 py-2
             hover:cursor-pointer hover:bg-[#242424] transition-all
-            flex gap-4 items-center
+            flex items-center
             "
         href="/dashboard"
       >

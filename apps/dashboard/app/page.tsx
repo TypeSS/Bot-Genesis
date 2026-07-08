@@ -1,26 +1,22 @@
 import Image from "next/image";
-import { FaDiscord } from "react-icons/fa";
-import { signIn } from "./auth";
 import bg_tex from "../assets/bg_tex.jpg";
 import logo from "../assets/genesisportugal_logo.svg";
-import TopBar from "./_components/topbar";
 import DiscordLogin from "./_components/discordlogin";
 import DashboardButton from "./_components/dashboardbutton";
 import LoggedIn from "./_components/LoggedIn";
 
 export default function Home() {
   return (
-    <div className="flex h-screen items-center mx-30">
-      <TopBar />
+    <div className="flex h-[calc(100vh-(var(--spacing)*20))] items-center mx-30">
       <Image
         src={bg_tex}
         alt="background texture"
-        className="inset-0 top-0 left-0 right-0 bottom-0 absolute w-screen h-screen object-cover opacity-3 -z-500"
+        className="inset-0 top-0 left-0 right-0 bottom-0 fixed w-screen h-full object-cover opacity-3 -z-500"
       />
-      <Image
-        src={logo}
+      <img
+        src={logo.src}
         alt="genesis portugal logo"
-        className="right-30 absolute w-auto h-120 object-cover pointer-events-none"
+        className="right-30 absolute w-auto h-120 object-cover pointer-events-none animate-float"
       />
       <div className="flex flex-col gap-16">
         <div className="flex flex-col gap-8">

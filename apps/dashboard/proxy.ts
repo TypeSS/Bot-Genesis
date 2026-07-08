@@ -4,8 +4,6 @@ import { auth } from "./app/auth";
 export default async function proxy(req: NextRequest) {
   const session = await auth();
 
-  console.log(session);
-
   if (!session && req.nextUrl.pathname.startsWith("/dashboard"))
     return NextResponse.redirect(new URL("/", req.url));
 }

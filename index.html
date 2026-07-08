@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Float Test</title>
+
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      background: #111;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      border-radius: 16px;
+
+      animation: float 10s ease-in-out infinite;
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <img class="box"></img>
+</body>
+</html>

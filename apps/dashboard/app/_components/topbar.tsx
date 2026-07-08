@@ -5,7 +5,7 @@ import Profile from "./topbarprofile";
 export default function TopBar() {
   return (
     <div
-      className="absolute left-0 top-0 flex flex-row w-screen h-20 bg-[#0f0f0f] border-b 
+      className="fixed left-0 top-0 flex flex-row w-screen h-20 bg-[#0f0f0f] border-b 
       border-[#242424] p-4 justify-between"
     >
       <a
