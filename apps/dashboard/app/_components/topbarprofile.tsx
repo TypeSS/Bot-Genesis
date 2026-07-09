@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { auth, signOut } from "../auth";
 import DiscordLogin from "./discordlogin";
 import LoggedIn from "./LoggedIn";
 import { HiOutlineLogout } from "react-icons/hi";
 import { TbLayoutDashboard } from "react-icons/tb";
+import { auth } from "@/app/auth";
 
 import {
   DropdownMenu,
@@ -15,9 +15,10 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import { headers } from "next/headers";
 
 export default async function Profile() {
-  const session = await auth();
+  const session = await auth.api.getSession({ headers: await headers() });
   return (
     <LoggedIn
       is={
@@ -43,7 +44,9 @@ export default async function Profile() {
                 variant="destructive"
                 onClick={async () => {
                   "use server";
-                  await signOut();
+                  await auth.api.signOut({
+                    headers: await headers(),
+                  });
                 }}
                 className="hover:cursor-pointer"
               >

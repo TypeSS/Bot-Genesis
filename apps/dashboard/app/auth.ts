@@ -1,11 +1,10 @@
-import NextAuth from "next-auth";
-import Discord from "next-auth/providers/discord";
+import { betterAuth } from "better-auth";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  providers: [
-    Discord({
+export const auth = betterAuth({
+  socialProviders: {
+    discord: {
       clientId: process.env.AUTH_DISCORD_ID!,
       clientSecret: process.env.AUTH_DISCORD_SECRET!,
-    }),
-  ],
+    },
+  },
 });

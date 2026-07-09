@@ -1,5 +1,6 @@
 import { SidebarTab } from "@/lib/types";
 import { TbTools, TbShield, TbHorseToy } from "react-icons/tb";
+import Embeds from "@/app/dashboard/[guildId]/[category]/categoryComponents/embeds";
 
 export const tabs: Record<string, SidebarTab> = {
   Útil: {
@@ -8,6 +9,7 @@ export const tabs: Record<string, SidebarTab> = {
       {
         name: "Embeds",
         path: "/embeds",
+        content: Embeds,
       },
     ],
   },
@@ -17,6 +19,7 @@ export const tabs: Record<string, SidebarTab> = {
       {
         name: "Pote de Mel",
         path: "/honeypot",
+        content: Embeds,
       },
     ],
   },
@@ -26,10 +29,12 @@ export const tabs: Record<string, SidebarTab> = {
       {
         name: "Níveis",
         path: "/levels",
+        content: Embeds,
       },
       {
         name: "Gatilhos",
         path: "/triggers",
+        content: Embeds,
       },
     ],
   },

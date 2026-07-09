@@ -16,5 +16,6 @@ export type SidebarTab = {
   subTabs: {
     name: string;
     path: string;
+    content: React.ComponentType<{ guild: Guild }>;
   }[];
 };

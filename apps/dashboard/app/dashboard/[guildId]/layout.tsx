@@ -14,10 +14,7 @@ export default async function DashboardLayout({
   return (
     <SidebarProvider>
       <DashboardSidebar guilds={guilds} guildId={(await params).guildId} />
-      <div className="w-full">
-        <SidebarTrigger />
-        {children}
-      </div>
+      <div className="w-full">{children}</div>
     </SidebarProvider>
   );
 }

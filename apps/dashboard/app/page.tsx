@@ -18,7 +18,7 @@ export default function Home() {
         alt="genesis portugal logo"
         className="right-30 absolute w-auto h-120 object-cover pointer-events-none animate-float"
       />
-      <div className="flex flex-col gap-16">
+      <div className="flex flex-col gap-16 items-start">
         <div className="flex flex-col gap-8">
           <h1 className="text-5xl font-sans font-bold">
             100% português.
