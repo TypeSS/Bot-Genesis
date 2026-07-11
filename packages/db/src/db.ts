@@ -1,12 +1,13 @@
 import { mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import Database from "better-sqlite3";
+import type { Database as DB } from "better-sqlite3";
 
 const dbPath = join(process.cwd(), "data/bot.db");
 
 mkdirSync(dirname(dbPath), { recursive: true });
 
-export const db = new Database(dbPath);
+export const db: DB = new Database(dbPath);
 
 db.pragma("journal_mode = WAL");
 

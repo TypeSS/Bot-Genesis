@@ -1,12 +1,11 @@
 import { config } from "dotenv";
 import { Client, GatewayIntentBits } from "discord.js";
 import { loadEvents } from "./handlers/eventHandler";
-import { join } from "path";
 
-config({ path: join(__dirname, ".env") });
+config();
 
 async function main() {
-  const token = process.env.TOKEN;
+  const token = process.env.DISCORD_TOKEN;
 
   if (!token) {
     throw new Error("No token.");
@@ -24,7 +23,6 @@ async function main() {
 
   await loadEvents(client);
   await client.login(token);
-  console.log(client.options.intents.toArray());
 }
 
 void main().catch((err) => {

@@ -3,7 +3,11 @@
   "include": ["src"],
   "compilerOptions": {
     "moduleResolution": "NodeNext",
+    "outDir": "dist",
+    "rootDir": "./src",
     "module": "NodeNext",
-    "types": ["node"]
+    "types": ["node"],
+    "declaration": true,
+    "declarationMap": true
   }
 }

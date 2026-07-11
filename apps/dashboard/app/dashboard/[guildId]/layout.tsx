@@ -1,4 +1,4 @@
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import DashboardSidebar from "../_components/sidebar";
 import { getBotGuilds } from "../../actions/discord";
 
@@ -6,7 +6,7 @@ export default async function DashboardLayout({
   params,
   children,
 }: Readonly<{
-  params: { guildId: string };
+  params: Promise<{ guildId: string }>;
   children: React.ReactNode;
 }>) {
   const guilds = await getBotGuilds();

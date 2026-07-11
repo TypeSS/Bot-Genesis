@@ -8,14 +8,16 @@ WORKDIR /app
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
-COPY apps/bot/package.json apps/bot/package.json
+COPY apps/dashboard/package.json apps/dashboard/package.json
 COPY packages/core/package.json packages/core/package.json
 COPY packages/db/package.json packages/db/package.json
 
+
 RUN pnpm install --frozen-lockfile
+
 COPY . .
 
 RUN pnpm packages:build
-RUN pnpm bot:build
+RUN pnpm dashboard:build
 
-CMD ["pnpm", "--filter", "@genesis/bot", "start"]
+CMD ["pnpm", "--filter", "@genesis/dashboard", "start"]

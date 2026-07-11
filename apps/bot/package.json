@@ -1,18 +1,20 @@
 {
-  "name": "genesis_bot",
+  "name": "@genesis/bot",
   "version": "0.5.0",
   "description": "",
+  "license": "ISC",
+  "author": "Genesis",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx watch --env-file=../../.env src/index.ts",
     "typecheck": "tsc --noEmit",
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start": "node dist/src/index.js",
     "previewCard": "tsx watch src/utils/previewCard.ts & sleep 2 && feh -R 1 src/utils/preview.png"
   },
-  "author": "Genesis",
-  "license": "ISC",
   "dependencies": {
+    "@genesis/core": "workspace:*",
+    "@genesis/db": "workspace:*",
     "axios": "^1.6.0",
     "better-sqlite3": "^12.10.0",
     "canvas": "^3.2.3",

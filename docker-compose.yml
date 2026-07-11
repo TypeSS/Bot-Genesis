@@ -5,6 +5,23 @@ services:
       dockerfile: apps/bot/Dockerfile
     restart: unless-stopped
     environment:
-      TOKEN: ${TOKEN}
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+    env_file:
+      - ./.env
     volumes:
       - ./data:/app/data
+  dashboard:
+    build: 
+      context: .
+      dockerfile: apps/dashboard/Dockerfile
+    restart: unless-stopped
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - AUTH_DISCORD_ID=${AUTH_DISCORD_ID}
+      - AUTH_DISCORD_SECRET=${AUTH_DISCORD_SECRET}
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
+      - BETTER_AUTH_URL=${BETTER_AUTH_URL}
+    env_file:
+      - ./.env
+    ports:
+      - "3000:3000"

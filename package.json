@@ -8,8 +8,9 @@
   "scripts": {
     "dev": "pnpm -r dev",
     "bot:dev": "pnpm --filter @genesis/bot dev",
-    "bot:prod": "pnpm --filter @genesis/bot build && pnpm --filter @genesis/bot start",
+    "bot:build": "pnpm --filter @genesis/bot build",
     "dashboard:dev": "pnpm --filter @genesis/dashboard dev --turbopack",
-    "dashboard:prod": "pnpm --filter @genesis/dashboard build && pnpm --filter @genesis/dashboard start"
+    "dashboard:build": "pnpm --filter @genesis/dashboard build",
+    "packages:build": "pnpm --filter @genesis/core build && pnpm --filter @genesis/db build"
   }
 }

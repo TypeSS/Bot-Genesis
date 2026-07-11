@@ -3,6 +3,8 @@ import { SlashCommand } from "../types/command";
 import { xpDb } from "@genesis/db";
 import { type XpSource } from "@genesis/db";
 import { ErrorMessage } from "../constants/errormessages";
+import { hasAnyRole } from "../utils/helper";
+import { adminRoles } from "../constants/adminRoles";
 
 export const addXpCommand: SlashCommand = {
   data: new SlashCommandBuilder()
@@ -26,7 +28,7 @@ export const addXpCommand: SlashCommand = {
     const xpAmount = interaction.options.getInteger("xp", true);
     const type = interaction.options.getString("tipo") ?? "text";
 
-    if (!(interaction.member as GuildMember).roles.cache.has("1504146567924551722")) {
+    if (hasAnyRole((interaction.member as GuildMember).roles.cache, adminRoles)) {
       interaction.reply({ content: ErrorMessage.NOT_ALLOWED, ephemeral: true });
       return;
     }

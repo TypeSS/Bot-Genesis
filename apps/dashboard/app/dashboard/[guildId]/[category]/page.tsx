@@ -10,7 +10,7 @@ export async function generateStaticParams() {
 export default async function DashboardCategoryPage({
   params,
 }: {
-  params: { category: string; guildId: string };
+  params: Promise<{ category: string; guildId: string }>;
 }) {
   const { category, guildId } = await params;
   const subTab = Object.values(tabs)

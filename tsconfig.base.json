@@ -4,11 +4,6 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "strict": true,
-    "esModuleInterop": true,
-    "baseUrl": ".",
-    "paths": {
-      "@genesis/core": ["packages/core/src"],
-      "@genesis/db": ["packages/db/src"]
-    }
+    "esModuleInterop": true
   }
 }
