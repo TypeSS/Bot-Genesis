@@ -1,12 +1,6 @@
 import { getGuild } from "@/app/actions/discord";
 import { tabs } from "../../../config/dashboard-tabs";
 
-export async function generateStaticParams() {
-  return Object.values(tabs).flatMap((tab) =>
-    tab.subTabs.map((subTab) => ({ category: subTab.name })),
-  );
-}
-
 export default async function DashboardCategoryPage({
   params,
 }: {

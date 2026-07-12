@@ -6,8 +6,6 @@ services:
     restart: unless-stopped
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
-    args:
-      - DISCORD_TOKEN=${DISCORD_TOKEN}
     env_file:
       - ./.env
     volumes:
@@ -17,12 +15,6 @@ services:
       context: .
       dockerfile: apps/dashboard/Dockerfile
     restart: unless-stopped
-    args:
-      - DISCORD_TOKEN=${DISCORD_TOKEN}
-      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
-      - BETTER_AUTH_URL=${BETTER_AUTH_URL}
-      - AUTH_DISCORD_ID=${AUTH_DISCORD_ID}
-      - AUTH_DISCORD_SECRET=${AUTH_DISCORD_SECRET}
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
       - AUTH_DISCORD_ID=${AUTH_DISCORD_ID}
