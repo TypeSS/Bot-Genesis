@@ -1,9 +1,11 @@
 import { mkdirSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname } from "node:path";
 import Database from "better-sqlite3";
 import type { Database as DB } from "better-sqlite3";
 
-const dbPath = join(process.cwd(), "data/bot.db");
+const dbPath = "data/bot.db";
+
+console.log(`Database path: ${dbPath}`);
 
 mkdirSync(dirname(dbPath), { recursive: true });
 
