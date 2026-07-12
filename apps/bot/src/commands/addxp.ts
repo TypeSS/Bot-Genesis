@@ -1,4 +1,4 @@
-import { GuildMember, SlashCommandBuilder } from "discord.js";
+import { GuildMember, MessageFlags, SlashCommandBuilder } from "discord.js";
 import { SlashCommand } from "../types/command";
 import { xpDb } from "@genesis/db";
 import { type XpSource } from "@genesis/db";
@@ -29,11 +29,11 @@ export const addXpCommand: SlashCommand = {
     const type = interaction.options.getString("tipo") ?? "text";
 
     if (hasAnyRole((interaction.member as GuildMember).roles.cache, adminRoles)) {
-      interaction.reply({ content: ErrorMessage.NOT_ALLOWED, ephemeral: true });
+      interaction.reply({ content: ErrorMessage.NOT_ALLOWED, flags: MessageFlags.Ephemeral });
       return;
     }
     if (!interaction.guildId) {
-      interaction.reply({ content: ErrorMessage.GENERIC_ERROR, ephemeral: true });
+      interaction.reply({ content: ErrorMessage.GENERIC_ERROR, flags: MessageFlags.Ephemeral });
       return;
     }
     xpDb.addXp(interaction.guildId, user.id, xpAmount, type as XpSource);

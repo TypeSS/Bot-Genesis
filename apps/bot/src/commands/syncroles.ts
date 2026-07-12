@@ -27,7 +27,7 @@ export const syncRoles: SlashCommand = {
       all != null &&
       !(interaction.member as GuildMember).roles.cache.has("1504146567924551722")
     ) {
-      interaction.reply({ content: ErrorMessage.NOT_ALLOWED, ephemeral: true });
+      interaction.reply({ content: ErrorMessage.NOT_ALLOWED, flags: MessageFlags.Ephemeral });
       return;
     }
 
