@@ -9,6 +9,8 @@ import { levelDb } from "@genesis/db";
 import { xpDb } from "@genesis/db";
 import { calculateXpForLevel } from "@genesis/core";
 import { ErrorMessage } from "../constants/errormessages";
+import { hasAnyRole } from "../utils/helper";
+import { adminRoles } from "../constants/adminRoles";
 
 export const syncRoles: SlashCommand = {
   data: new SlashCommandBuilder()
@@ -23,10 +25,7 @@ export const syncRoles: SlashCommand = {
   async execute(interaction) {
     const all = interaction.options.getBoolean("all", false);
 
-    if (
-      all != null &&
-      !(interaction.member as GuildMember).roles.cache.has("1504146567924551722")
-    ) {
+    if (all != null && !hasAnyRole((interaction.member as GuildMember).roles.cache, adminRoles)) {
       interaction.reply({ content: ErrorMessage.NOT_ALLOWED, flags: MessageFlags.Ephemeral });
       return;
     }

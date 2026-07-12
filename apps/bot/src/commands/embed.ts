@@ -23,7 +23,7 @@ export const embedCommand: SlashCommand = {
         .setRequired(true),
     ),
   async execute(interaction) {
-    if (hasAnyRole((interaction.member as GuildMember).roles.cache, adminRoles)) {
+    if (!hasAnyRole((interaction.member as GuildMember).roles.cache, adminRoles)) {
       interaction.reply({ content: ErrorMessage.NOT_ALLOWED, ephemeral: true });
       return;
     }

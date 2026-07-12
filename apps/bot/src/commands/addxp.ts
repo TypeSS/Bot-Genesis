@@ -28,7 +28,7 @@ export const addXpCommand: SlashCommand = {
     const xpAmount = interaction.options.getInteger("xp", true);
     const type = interaction.options.getString("tipo") ?? "text";
 
-    if (hasAnyRole((interaction.member as GuildMember).roles.cache, adminRoles)) {
+    if (!hasAnyRole((interaction.member as GuildMember).roles.cache, adminRoles)) {
       interaction.reply({ content: ErrorMessage.NOT_ALLOWED, flags: MessageFlags.Ephemeral });
       return;
     }

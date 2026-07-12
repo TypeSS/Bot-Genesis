@@ -2,6 +2,8 @@ import { GuildMember, MessageFlags, SlashCommandBuilder } from "discord.js";
 import { SlashCommand } from "../types/command";
 import { levelDb } from "@genesis/db";
 import { ErrorMessage } from "../constants/errormessages";
+import { hasAnyRole } from "../utils/helper";
+import { adminRoles } from "../constants/adminRoles";
 
 export const addLevelRole: SlashCommand = {
   data: new SlashCommandBuilder()
@@ -15,7 +17,7 @@ export const addLevelRole: SlashCommand = {
     const level = interaction.options.getNumber("level", true);
     const role = interaction.options.getRole("role", true);
 
-    if (!(interaction.member as GuildMember).roles.cache.has("1504146567924551722")) {
+    if (!hasAnyRole((interaction.member as GuildMember).roles.cache, adminRoles)) {
       interaction.reply({ content: ErrorMessage.NOT_ALLOWED, flags: MessageFlags.Ephemeral });
       return;
     }
