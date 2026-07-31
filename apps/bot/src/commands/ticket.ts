@@ -8,7 +8,7 @@ import { embed, row } from "../services/ticketService";
 
 export const ticketCommand: SlashCommand = {
   data: new SlashCommandBuilder()
-    .setName("startsupport")
+    .setName("ticket")
     .setDescription("Inicia o sistema de suporte."),
   async execute(interaction) {
     if (!hasAnyRole((interaction.member as GuildMember).roles.cache, adminRoles)) {
