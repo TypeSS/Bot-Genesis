@@ -97,7 +97,7 @@ export async function handleTicketCreation(interaction: Interaction) {
 
   thread.send({
     content: `
-  # Ticket de Queixa
+  # Ticket de ${typeName}
 
 **Olá**, <@${interaction.user.id}>!
 
