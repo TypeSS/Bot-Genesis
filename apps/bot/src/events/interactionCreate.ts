@@ -1,11 +1,15 @@
 import { MessageFlags, type Client, type Interaction } from "discord.js";
 import { slashCommandMap } from "../commands";
+import { handleTicketCreation, handleTicketRequest } from "../services/ticketService";
 
-export default async function interactionCreate(_client: Client, interaction: Interaction,) {
+export default async function interactionCreate(_client: Client, interaction: Interaction) {
+  handleTicketRequest(interaction);
+  handleTicketCreation(interaction);
+
   if (!interaction.isChatInputCommand()) {
     return;
   }
-  
+
   const command = slashCommandMap.get(interaction.commandName);
   if (!command) {
     await interaction.reply({

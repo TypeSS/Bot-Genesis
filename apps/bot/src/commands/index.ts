@@ -5,6 +5,7 @@ import { addLevelRole } from "./addlevelrole";
 import { syncRoles } from "./syncroles";
 import { pingCommand } from "./ping";
 import { embedCommand } from "./embed";
+import { ticketCommand } from "./ticket";
 
 export const slashCommands: SlashCommand[] = [
   levelCommand,
@@ -13,6 +14,7 @@ export const slashCommands: SlashCommand[] = [
   syncRoles,
   embedCommand,
   pingCommand,
+  ticketCommand,
 ];
 export const slashCommandMap = new Map(
   slashCommands.map((command) => [command.data.name, command]),

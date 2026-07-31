@@ -1,13 +1,26 @@
 import { mkdirSync } from "node:fs";
-import { dirname } from "node:path";
+import { dirname, resolve } from "node:path";
 import Database from "better-sqlite3";
 import type { Database as DB } from "better-sqlite3";
 
-const dbPath = "/app/data/bot.db";
+const dockerDbPath = "/app/data/bot.db";
+const localDbPath = resolve(process.cwd(), "data", "bot.db");
+const configuredDbPath = process.env.BOT_DB_PATH;
 
-console.log(`Database path: ${dbPath}`);
+let dbPath = configuredDbPath ?? dockerDbPath;
 
-mkdirSync(dirname(dbPath), { recursive: true });
+try {
+  mkdirSync(dirname(dbPath), { recursive: true });
+} catch (error) {
+  const err = error as NodeJS.ErrnoException;
+
+  if (configuredDbPath || (err.code !== "EACCES" && err.code !== "EPERM")) {
+    throw error;
+  }
+
+  dbPath = localDbPath;
+  mkdirSync(dirname(dbPath), { recursive: true });
+}
 
 export const db: DB = new Database(dbPath);
 
@@ -31,5 +44,12 @@ db.exec(`
     level INTEGER NOT NULL,
     role_id TEXT NOT NULL,
     PRIMARY KEY (guild_id, level)
+  )
+`);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS ticket_settings (
+    guild_id TEXT PRIMARY KEY,
+    ticket_channel_id TEXT NOT NULL
   )
 `);
