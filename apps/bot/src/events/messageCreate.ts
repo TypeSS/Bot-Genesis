@@ -1,5 +1,5 @@
 import { type Client, type Message } from "discord.js";
-import { xpService } from "@genesis/services";
+import { xpHandler } from "../handlers/xpHandler";
 import { levelHandler } from "../handlers/levelHandler";
 import { triggerHandler } from "../handlers/triggerHandler";
 
@@ -8,7 +8,7 @@ export default async function messageCreate(_client: Client, message: Message) {
     return;
   }
 
-  await xpService.processTextMessage(message);
+  await xpHandler.processTextMessage(message);
   triggerHandler.handleTrigger(message);
   levelHandler.handleLevelUpNotification(message);
   levelHandler.handleRoleUpdate(message);
