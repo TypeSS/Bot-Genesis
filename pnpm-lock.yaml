@@ -16,6 +16,9 @@ importers:
       '@genesis/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@genesis/services':
+        specifier: workspace:*
+        version: link:../../packages/services
       axios:
         specifier: ^1.6.0
         version: 1.18.1(supports-color@5.5.0)
@@ -65,6 +68,9 @@ importers:
       '@genesis/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@genesis/services':
+        specifier: workspace:*
+        version: link:../../packages/services
       '@hookform/resolvers':
         specifier: ^5.4.0
         version: 5.4.0(react-hook-form@7.81.0(react@19.2.4))
