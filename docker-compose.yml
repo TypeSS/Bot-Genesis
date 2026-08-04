@@ -23,5 +23,7 @@ services:
       - BETTER_AUTH_URL=${BETTER_AUTH_URL}
     env_file:
       - ./.env
+    volumes:
+      - ./data:/app/data
     ports:
       - "3000:3000"
