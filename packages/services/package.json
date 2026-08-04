@@ -1,6 +1,6 @@
 {
-  "name": "@genesis/db",
-  "version": "1.2.0",
+  "name": "@genesis/services",
+  "version": "1.0.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
@@ -8,11 +8,10 @@
   },
   "dependencies": {
     "@genesis/core": "workspace:*",
-    "@types/node": "^25.9.4",
-    "better-sqlite3": "^12.11.1"
+    "@genesis/db": "workspace:*"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.9.1",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"
   }

@@ -11,6 +11,6 @@
     "bot:build": "pnpm --filter @genesis/bot build",
     "dashboard:dev": "pnpm --filter @genesis/dashboard dev --turbopack",
     "dashboard:build": "pnpm --filter @genesis/dashboard build",
-    "packages:build": "pnpm --filter @genesis/core build && pnpm --filter @genesis/db build"
+    "packages:build": "pnpm --filter @genesis/core build && pnpm --filter @genesis/db build && pnpm --filter @genesis/services build"
   }
 }

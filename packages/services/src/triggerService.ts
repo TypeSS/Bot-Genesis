@@ -1,7 +1,13 @@
-import { Trigger } from "../types";
+import { Trigger } from "@genesis/core";
 import { triggerDb } from "@genesis/db";
 
 export const triggerCache: Map<string, Map<string, Trigger>> = new Map();
+
+type TriggerRow = {
+  trigger_id: string;
+  trigger_content: string;
+  allowed_roles: string;
+};
 
 async function get(guild_id: string): Promise<Map<string, Trigger>> {
   const cached = triggerCache.get(guild_id);
@@ -37,7 +43,7 @@ async function deleteTrigger(guild_id: string, trigger_id: string) {
 
 async function getAllTriggers(guild_id: string): Promise<Trigger[]> {
   const triggers = triggerDb.getAllTriggers(guild_id);
-  return triggers.map((trigger) => ({
+  return triggers.map((trigger: TriggerRow) => ({
     id: trigger.trigger_id,
     content: trigger.trigger_content,
     allowed_roles: JSON.parse(trigger.allowed_roles),
