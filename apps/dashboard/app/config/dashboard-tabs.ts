@@ -1,6 +1,7 @@
 import { SidebarTab } from "@/lib/types";
 import { TbTools, TbShield, TbHorseToy } from "react-icons/tb";
 import Embeds from "@/app/dashboard/[guildId]/[category]/categoryComponents/embeds";
+import Triggers from "../dashboard/[guildId]/[category]/categoryComponents/triggers";
 
 export const tabs: Record<string, SidebarTab> = {
   Útil: {
@@ -34,7 +35,7 @@ export const tabs: Record<string, SidebarTab> = {
       {
         name: "Gatilhos",
         path: "/triggers",
-        content: Embeds,
+        content: Triggers,
       },
     ],
   },

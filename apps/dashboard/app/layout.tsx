@@ -29,9 +29,9 @@ export default function RootLayout({
       lang="en"
       className={cn("h-full", "antialiased", "dark", syne.variable, jetbrainsMono.variable)}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="flex flex-col h-full">
         <TopBar />
-        <main className="mt-20">{children}</main>
+        <main className="flex-1 pt-20">{children}</main>
       </body>
     </html>
   );

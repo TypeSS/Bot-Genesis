@@ -1,5 +1,5 @@
 import { AttachmentBuilder, SlashCommandBuilder } from "discord.js";
-import { xpService } from "../services/xpService";
+import { xpService } from "@genesis/core/src/services/xpService";
 import { createLevelCard } from "../utils/levelCard";
 import type { SlashCommand } from "../types/command";
 import { ErrorMessage } from "../constants/errormessages";

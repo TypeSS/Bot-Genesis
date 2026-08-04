@@ -1,6 +1,6 @@
 import { MessageFlags, type Client, type Interaction } from "discord.js";
 import { slashCommandMap } from "../commands";
-import { handleTicketCreation, handleTicketRequest } from "../services/ticketService";
+import { handleTicketCreation, handleTicketRequest } from "../handlers/ticketHandler";
 
 export default async function interactionCreate(_client: Client, interaction: Interaction) {
   handleTicketRequest(interaction);

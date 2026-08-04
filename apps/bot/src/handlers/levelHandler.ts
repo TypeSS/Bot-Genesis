@@ -32,4 +32,4 @@ function handleRoleUpdate(message: Message) {
   }
 }
 
-export const levelService = { handleLevelUpNotification, handleRoleUpdate };
+export const levelHandler = { handleLevelUpNotification, handleRoleUpdate };

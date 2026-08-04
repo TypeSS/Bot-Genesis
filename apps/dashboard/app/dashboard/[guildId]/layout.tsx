@@ -12,9 +12,9 @@ export default async function DashboardLayout({
   const guilds = await getBotGuilds();
 
   return (
-    <SidebarProvider>
+    <SidebarProvider className="h-[calc(100vh-5rem)]!">
       <DashboardSidebar guilds={guilds} guildId={(await params).guildId} />
-      <div className="w-full">{children}</div>
+      <div className="w-full h-[calc(100vh-5rem)]">{children}</div>
     </SidebarProvider>
   );
 }

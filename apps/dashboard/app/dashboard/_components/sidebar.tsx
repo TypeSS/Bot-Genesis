@@ -27,7 +27,7 @@ export default function DashboardSidebar({
   const guild = getGuildById(guildId, guilds)!;
 
   return (
-    <Sidebar className="top-20">
+    <Sidebar className="top-20 h-[calc(100vh-5rem)]">
       <SidebarHeader className="list-none">
         <SidebarMenuItem>
           <GuildDropdown selectedGuild={guild} guilds={guilds} />

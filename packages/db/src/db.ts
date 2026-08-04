@@ -4,7 +4,7 @@ import Database from "better-sqlite3";
 import type { Database as DB } from "better-sqlite3";
 
 const dockerDbPath = "/app/data/bot.db";
-const localDbPath = resolve(process.cwd(), "data", "bot.db");
+const localDbPath = resolve(process.cwd(), "../../", "data", "bot.db");
 const configuredDbPath = process.env.BOT_DB_PATH;
 
 let dbPath = configuredDbPath ?? dockerDbPath;
@@ -51,5 +51,15 @@ db.exec(`
   CREATE TABLE IF NOT EXISTS ticket_settings (
     guild_id TEXT PRIMARY KEY,
     ticket_channel_id TEXT NOT NULL
+  )
+`);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS triggers (
+   guild_id TEXT NOT NULL,
+   trigger_id TEXT NOT NULL,
+   trigger_content TEXT NOT NULL,
+   allowed_roles TEXT NOT NULL,
+   PRIMARY KEY (guild_id, trigger_id)
   )
 `);

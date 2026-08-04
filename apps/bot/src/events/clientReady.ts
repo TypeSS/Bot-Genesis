@@ -1,8 +1,13 @@
 import { ActivityType, type Client } from "discord.js";
 import { slashCommands } from "../commands";
+import { triggerService } from "@genesis/core/src/services/triggerService";
 
 export default async function clientReady(client: Client) {
   console.log(`Bot online ${client.user!.tag ?? "Bot"}.`);
+
+  setInterval(() => {
+    triggerService.refreshCache().catch(console.error);
+  }, 10_000);
 
   client.user!.setActivity({
     name: "/level",

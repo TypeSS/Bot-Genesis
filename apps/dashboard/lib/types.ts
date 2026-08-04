@@ -11,6 +11,11 @@ export type Guild = {
   approximate_presence_count: number;
 };
 
+export type Role = {
+  id: string;
+  name: string;
+};
+
 export type SidebarTab = {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   subTabs: {

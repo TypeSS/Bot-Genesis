@@ -16,7 +16,7 @@ export default async function DashboardCategoryPage({
   }
 
   return (
-    <div className="flex flex-col gap-4 m-5">
+    <div className="flex flex-col gap-4 p-5 h-full">
       <h1 className="text-2xl font-black font-sans">{subTab.name}</h1>
       <subTab.content guild={await getGuild(guildId)} />
     </div>

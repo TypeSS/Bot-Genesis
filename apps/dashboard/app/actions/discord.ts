@@ -26,6 +26,18 @@ export async function getGuild(guildId: string) {
   return await res.json();
 }
 
+export async function getGuildRoles(guildId: string) {
+  const res = await fetch(`https://discord.com/api/v10/guilds/${guildId}/roles`, {
+    headers: {
+      Authorization: `Bot ${process.env.DISCORD_TOKEN}`,
+    },
+    next: {
+      revalidate: 60,
+    },
+  });
+  return await res.json();
+}
+
 export async function getGuildChannels(guildId: string) {
   const res = await fetch(`https://discord.com/api/v10/guilds/${guildId}/channels`, {
     headers: {

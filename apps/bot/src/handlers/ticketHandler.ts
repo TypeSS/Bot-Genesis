@@ -36,9 +36,9 @@ const select = new StringSelectMenuBuilder()
       .setValue("other"),
   );
 
-export const row = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(select);
+const row = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(select);
 
-export const embed = new EmbedBuilder()
+const embed = new EmbedBuilder()
   .setTitle("Suporte da Genesis Portugal")
   .setDescription(
     "Aqui, podes requisitar um chat para tirar dúvidas, reportar uma situação ou membro inconveniente, ou simplesmente entrar em contacto com os membros da staff.\n\nPor favor, seleciona a opção que se relaciona com o teu problema, e responderemos o mais rápido possível!",
@@ -116,3 +116,5 @@ Motivo do ticket:
     flags: MessageFlags.Ephemeral,
   });
 }
+
+export const ticketHandler = { handleTicketRequest, handleTicketCreation, embed, row };

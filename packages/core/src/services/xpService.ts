@@ -5,7 +5,7 @@ import {
   calculateTextCheckpointXp,
   calculateVoiceXp,
   calculateXpForLevel,
-} from "@genesis/core";
+} from "../xpCalculator";
 import type { TextSession, XpSource } from "@genesis/db";
 import { xpDb } from "@genesis/db";
 

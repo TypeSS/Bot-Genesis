@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@base-ui/react": "^1.6.0",
     "@genesis/core": "workspace:*",
     "@genesis/db": "workspace:*",
     "@hookform/resolvers": "^5.4.0",

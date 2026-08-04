@@ -4,12 +4,10 @@ import { SlashCommand } from "../types/command";
 import { hasAnyRole } from "../utils/helper";
 import { ErrorMessage } from "../constants/errormessages";
 import { adminRoles } from "../constants/adminRoles";
-import { embed, row } from "../services/ticketService";
+import { ticketHandler } from "../handlers/ticketHandler";
 
 export const ticketCommand: SlashCommand = {
-  data: new SlashCommandBuilder()
-    .setName("ticket")
-    .setDescription("Inicia o sistema de suporte."),
+  data: new SlashCommandBuilder().setName("ticket").setDescription("Inicia o sistema de suporte."),
   async execute(interaction) {
     if (!hasAnyRole((interaction.member as GuildMember).roles.cache, adminRoles)) {
       interaction.reply({ content: ErrorMessage.NOT_ALLOWED, flags: MessageFlags.Ephemeral });
@@ -25,7 +23,10 @@ export const ticketCommand: SlashCommand = {
     }
 
     settingsDb.setTicketChannelId(interaction.guildId, interaction.channel.id);
-    await interaction.channel.send({ embeds: [embed], components: [row] });
+    await interaction.channel.send({
+      embeds: [ticketHandler.embed],
+      components: [ticketHandler.row],
+    });
     await interaction.reply({ content: "Feito!", flags: MessageFlags.Ephemeral });
   },
 };

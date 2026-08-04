@@ -1,7 +1,11 @@
 import type { Client, VoiceState } from "discord.js";
-import { xpService } from "../services/xpService";
+import { xpService } from "@genesis/core/src/services/xpService";
 
-export default async function voiceStateUpdate( _client: Client, oldState: VoiceState, newState: VoiceState ) {
+export default async function voiceStateUpdate(
+  _client: Client,
+  oldState: VoiceState,
+  newState: VoiceState,
+) {
   const member = newState.member ?? oldState.member;
 
   if (member!.user.bot) {
