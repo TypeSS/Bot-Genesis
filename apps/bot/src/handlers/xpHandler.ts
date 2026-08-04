@@ -208,7 +208,7 @@ function getLevelInfo(guildId: string, userId: string) {
   };
 }
 
-export const xpService = {
+export const xpHandler = {
   processTextMessage,
   processVoiceStateUpdate,
   getLevelInfo,

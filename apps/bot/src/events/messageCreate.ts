@@ -1,5 +1,5 @@
 import { type Client, type Message } from "discord.js";
-import { xpService } from "@genesis/core/src/services/xpService";
+import { xpService } from "@genesis/services";
 import { levelHandler } from "../handlers/levelHandler";
 import { triggerHandler } from "../handlers/triggerHandler";
 

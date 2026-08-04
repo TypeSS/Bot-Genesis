@@ -1,5 +1,5 @@
 import { GuildMember, Message } from "discord.js";
-import { triggerService } from "@genesis/services/src/triggerService";
+import { triggerService } from "@genesis/services";
 import { hasAnyRole } from "../utils/helper";
 
 async function handleTrigger(message: Message) {

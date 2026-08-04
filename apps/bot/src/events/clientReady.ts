@@ -1,6 +1,6 @@
 import { ActivityType, type Client } from "discord.js";
 import { slashCommands } from "../commands";
-import { triggerService } from "@genesis/core/src/services/triggerService";
+import { triggerService } from "@genesis/services";
 
 export default async function clientReady(client: Client) {
   console.log(`Bot online ${client.user!.tag ?? "Bot"}.`);

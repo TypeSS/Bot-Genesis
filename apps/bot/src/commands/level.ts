@@ -1,5 +1,5 @@
 import { AttachmentBuilder, SlashCommandBuilder } from "discord.js";
-import { xpService } from "@genesis/core/src/services/xpService";
+import { xpHandler } from "../handlers/xpHandler";
 import { createLevelCard } from "../utils/levelCard";
 import type { SlashCommand } from "../types/command";
 import { ErrorMessage } from "../constants/errormessages";
@@ -23,7 +23,7 @@ export const levelCommand: SlashCommand = {
 
     const user = interaction.options.getUser("membro") ?? interaction.user;
     const member = interaction.guild?.members.fetch(user.id);
-    const progress = xpService.getLevelInfo(interaction.guildId, user.id);
+    const progress = xpHandler.getLevelInfo(interaction.guildId, user.id);
     const image = await createLevelCard({
       username: user.tag,
       avatarUrl: user.displayAvatarURL({ extension: "jpg", size: 256 }),

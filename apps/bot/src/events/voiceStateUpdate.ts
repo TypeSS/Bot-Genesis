@@ -1,5 +1,5 @@
 import type { Client, VoiceState } from "discord.js";
-import { xpService } from "@genesis/core/src/services/xpService";
+import { xpService } from "@genesis/services";
 
 export default async function voiceStateUpdate(
   _client: Client,
