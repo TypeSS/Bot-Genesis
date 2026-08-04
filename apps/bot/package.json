@@ -15,6 +15,7 @@
   "dependencies": {
     "@genesis/core": "workspace:*",
     "@genesis/db": "workspace:*",
+    "@genesis/services": "workspace:*",
     "axios": "^1.6.0",
     "better-sqlite3": "^12.10.0",
     "canvas": "^3.2.3",

@@ -12,6 +12,7 @@
     "@base-ui/react": "^1.6.0",
     "@genesis/core": "workspace:*",
     "@genesis/db": "workspace:*",
+    "@genesis/services": "workspace:*",
     "@hookform/resolvers": "^5.4.0",
     "@phosphor-icons/react": "^2.1.10",
     "@types/next-auth": "^3.15.0",
