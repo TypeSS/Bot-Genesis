@@ -1,6 +1,6 @@
 "use server";
 import { Trigger } from "@genesis/core";
-import { triggerService } from "@genesis/core/src/services/triggerService";
+import { triggerService } from "@genesis/services";
 
 export async function addTrigger(guild_id: string, trigger: Trigger) {
   await triggerService.addTrigger(guild_id, trigger);
