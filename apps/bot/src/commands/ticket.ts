@@ -12,7 +12,7 @@ export const ticketCommand: SlashCommand = {
     .addStringOption((input) =>
       input
         .addChoices(
-          { name: "Suporte", value: "suporte" },
+          { name: "Suporte", value: "support" },
           { name: "Gala das Artes", value: "gala" },
         )
         .setName("type")
