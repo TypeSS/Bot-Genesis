@@ -49,8 +49,10 @@ db.exec(`
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS ticket_settings (
-    guild_id TEXT PRIMARY KEY,
-    ticket_channel_id TEXT NOT NULL
+    guild_id TEXT NOT NULL,
+    ticket_message_id TEXT NOT NULL,
+    ticket_type TEXT NOT NULL,
+    PRIMARY KEY (guild_id, ticket_type, ticket_message_id)
   )
 `);
 

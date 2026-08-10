@@ -1,13 +1,25 @@
 import { GuildMember, MessageFlags, SlashCommandBuilder, TextChannel } from "discord.js";
-import { settingsDb } from "@genesis/db";
 import { SlashCommand } from "../types/command";
 import { hasAnyRole } from "../utils/helper";
 import { ErrorMessage } from "../constants/errormessages";
 import { adminRoles } from "../constants/adminRoles";
 import { ticketHandler } from "../handlers/ticketHandler";
+import { ticketsDb } from "@genesis/db";
 
 export const ticketCommand: SlashCommand = {
-  data: new SlashCommandBuilder().setName("ticket").setDescription("Inicia o sistema de suporte."),
+  data: new SlashCommandBuilder()
+    .setName("ticket")
+    .addStringOption((input) =>
+      input
+        .addChoices(
+          { name: "Suporte", value: "suporte" },
+          { name: "Gala das Artes", value: "gala" },
+        )
+        .setName("type")
+        .setDescription("Tipo de ticket")
+        .setRequired(true),
+    )
+    .setDescription("Inicia o sistema de suporte."),
   async execute(interaction) {
     if (!hasAnyRole((interaction.member as GuildMember).roles.cache, adminRoles)) {
       interaction.reply({ content: ErrorMessage.NOT_ALLOWED, flags: MessageFlags.Ephemeral });
@@ -22,11 +34,13 @@ export const ticketCommand: SlashCommand = {
       return;
     }
 
-    settingsDb.setTicketChannelId(interaction.guildId, interaction.channel.id);
-    await interaction.channel.send({
-      embeds: [ticketHandler.embed],
-      components: [ticketHandler.row],
+    const type = interaction.options.getString("type", true);
+
+    const message = await interaction.channel.send({
+      embeds: [ticketHandler.embeds[interaction.options.getString("type", true)]],
+      components: [ticketHandler.rows[interaction.options.getString("type", true)]],
     });
+    ticketsDb.addTicketMessage(interaction.guildId, message.id, type);
     await interaction.reply({ content: "Feito!", flags: MessageFlags.Ephemeral });
   },
 };

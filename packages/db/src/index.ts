@@ -1,5 +1,5 @@
 export { levelDb } from "./levelDb";
-export { settingsDb } from "./settingsDb";
+export { ticketsDb } from "./ticketsDb";
 export { xpDb } from "./xpDb";
 export { triggerDb } from "./triggerDb";
 
