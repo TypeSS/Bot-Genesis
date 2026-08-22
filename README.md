@@ -90,7 +90,9 @@ O repositório agora inclui:
 
 ### Secrets necessários (Environment `production`)
 
-- `SSH_HOST` (IP/domínio do servidor)
+- `TS_OAUTH_CLIENT_ID` (OAuth client ID da tailnet para o GitHub Actions runner)
+- `TS_OAUTH_SECRET` (OAuth secret da tailnet para o GitHub Actions runner)
+- `SSH_HOST` (IP `100.x.y.z` ou MagicDNS do servidor na tailnet)
 - `SSH_PORT` (opcional, default `22`)
 - `SSH_USER` (utilizador SSH)
 - `SSH_PRIVATE_KEY` (chave privada para deploy)
@@ -99,6 +101,7 @@ O repositório agora inclui:
 ### Pré-requisitos no servidor
 
 - Docker + Docker Compose instalados
+- Tailscale instalado e autenticado na mesma tailnet
 - Ficheiro `.env` criado no `DEPLOY_PATH` com as variáveis necessárias
 - Porta `3000` aberta/proxy configurado (dashboard)
 
