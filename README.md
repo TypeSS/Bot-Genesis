@@ -81,6 +81,29 @@ npm run previewCard # para pré-visualizar o card de nível
 
 ---
 
+## CI/CD (GitHub Actions)
+
+O repositório agora inclui:
+
+- `CI` (`.github/workflows/ci.yml`): instala dependências, compila packages, bot e dashboard, faz typecheck/lint e valida `docker compose build`.
+- `CD` (`.github/workflows/cd.yml`): faz deploy automático para produção quando o `CI` termina com sucesso em `main` (ou manualmente via `workflow_dispatch`).
+
+### Secrets necessários (Environment `production`)
+
+- `SSH_HOST` (IP/domínio do servidor)
+- `SSH_PORT` (opcional, default `22`)
+- `SSH_USER` (utilizador SSH)
+- `SSH_PRIVATE_KEY` (chave privada para deploy)
+- `DEPLOY_PATH` (diretório no servidor onde o repo vai ficar)
+
+### Pré-requisitos no servidor
+
+- Docker + Docker Compose instalados
+- Ficheiro `.env` criado no `DEPLOY_PATH` com as variáveis necessárias
+- Porta `3000` aberta/proxy configurado (dashboard)
+
+---
+
 ## Contribuir
 
 Podes ajudar o desenvolvimento do bot da Genesis encontrando ou resolvendo [problemas](https://github.com/TypeSS/Bot-Genesis/issues), [desenvolvendo](https://github.com/TypeSS/Bot-Genesis/pulls) novas funcionalidades, ou doando à equipa. Obrigado por considerares ajudar!
