@@ -42,7 +42,7 @@ type MessageLike = {
   id: string;
   guildId: string;
   guild: { id: string; channels: { fetch: ReturnType<typeof vi.fn> } } | null;
-  channel: { id: string };
+  channel: { id: string; name?: string };
   author: { id: string; tag: string; displayAvatarURL: () => string };
   createdAt: Date;
   content: string;
@@ -376,5 +376,19 @@ describe("handleReactionAdd", () => {
     await starboardHandler.handleReactionAdd(makeReaction(message), makeUser());
     expect(channel.send).toHaveBeenCalled();
     expect(starboardDb.addPost).toHaveBeenCalledWith("guild-1", "msg-1", "star-msg-1", 6);
+  });
+
+  it("uses the source channel name in the embed footer", async () => {
+    const starboardChannel = makeChannel({ name: "starboard" });
+    const message = makeMessage({
+      channel: { id: "chn-original", name: "general" },
+      guild: { id: "guild-1", channels: { fetch: vi.fn(async () => starboardChannel) } },
+      reactions: { cache: { get: () => ({ count: 5 }) } },
+    });
+    await starboardHandler.handleReactionAdd(makeReaction(message), makeUser());
+    const sent = vi.mocked(starboardChannel.send).mock.calls[0][0] as { embeds: Array<{ data: { footer?: { text?: string } } }> };
+    const footer = sent.embeds[0].data.footer?.text ?? "";
+    expect(footer).toContain("#general");
+    expect(footer).not.toContain("#starboard");
   });
 });

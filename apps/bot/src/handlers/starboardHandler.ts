@@ -67,7 +67,7 @@ export function buildStarEmbed(message: Message, starCount: number, channelName:
 }
 
 export async function postToStarboard(message: Message, starCount: number, channel: TextChannel) {
-  const embed = buildStarEmbed(message, starCount, channel.name);
+  const embed = buildStarEmbed(message, starCount, (message.channel as TextChannel)?.name ?? "");
   return channel.send({ embeds: [embed] }).catch(() => null);
 }
 
@@ -128,7 +128,7 @@ async function handleReactionAdd(reaction: MessageReaction, user: User) {
       .catch(() => null);
 
     if (starMessage) {
-      const embed = buildStarEmbed(message, starCount, starChannel.name);
+      const embed = buildStarEmbed(message, starCount, (message.channel as TextChannel)?.name ?? "");
       await starMessage.edit({ embeds: [embed] }).catch(() => null);
       starboardDb.addPost(guild.id, message.id, starMessage.id, starCount);
       return;
