@@ -52,6 +52,8 @@ jobs:
             "DEPLOY_PATH='$DEPLOY_PATH' BRANCH='$BRANCH' REPO_SLUG='$REPO_SLUG' bash -s" <<'EOF'
           set -euo pipefail
 
+          echo "DEPLOY_PATH: $DEPLOY_PATH"
+
           if [ -z "${DEPLOY_PATH:-}" ]; then
             echo "DEPLOY_PATH is empty. Set the DEPLOY_PATH secret."
             exit 1
@@ -63,6 +65,12 @@ jobs:
           fi
 
           cd "$DEPLOY_PATH"
+          echo "Current directory: $(pwd)"
+          if [ -f .env ]; then
+            echo ".env found at $DEPLOY_PATH/.env"
+          else
+            echo ".env missing at $DEPLOY_PATH/.env"
+          fi
           git fetch origin "$BRANCH"
           git checkout "$BRANCH"
           git pull --ff-only origin "$BRANCH"
