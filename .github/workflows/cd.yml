@@ -34,10 +34,23 @@ jobs:
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-          tags: tag:ci
+          tags: deploy 
+
+      - name: Validate Tailscale target reachability
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SSH_HOST:-}" ]; then
+            echo "SSH_HOST is empty."
+            exit 1
+          fi
+          echo "Checking SSH_HOST: $SSH_HOST"
+          tailscale status
+          tailscale ping --timeout=30s "$SSH_HOST"
 
       - name: Add server to known hosts
-        run: ssh-keyscan -p "${{ secrets.SSH_PORT || '22' }}" "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
+        run: ssh-keyscan -T 10 -p "${{ secrets.SSH_PORT || '22' }}" "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
 
       - name: Deploy on server
         env:
