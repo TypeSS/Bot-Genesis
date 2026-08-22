@@ -34,7 +34,7 @@ jobs:
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-          tags: deploy 
+          tags: tag:deploy 
 
       - name: Validate Tailscale target reachability
         env:
