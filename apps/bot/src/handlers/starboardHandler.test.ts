@@ -1,12 +1,19 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import type { Message, MessageReaction, TextChannel, User } from "discord.js";
 import { starboardDb } from "@genesis/db";
-import { starboardHandler, getStarCount, findMedia, buildStarEmbed, postToStarboard, STAR_EMOJI, STARBOARD_THRESHOLD } from "./starboardHandler";
+import { starboardService } from "@genesis/services";
+import { starboardHandler, getStarCount, findMedia, buildStarEmbed, postToStarboard, STAR_EMOJI } from "./starboardHandler";
 
 vi.mock("@genesis/db", () => ({
   starboardDb: {
     getPost: vi.fn(),
     addPost: vi.fn(),
+  },
+}));
+
+vi.mock("@genesis/services", () => ({
+  starboardService: {
+    getSettings: vi.fn(() => undefined),
   },
 }));
 
@@ -215,6 +222,10 @@ describe("handleReactionAdd", () => {
   beforeEach(() => {
     vi.mocked(starboardDb.getPost).mockReset().mockReturnValue(undefined);
     vi.mocked(starboardDb.addPost).mockReset();
+    vi.mocked(starboardService.getSettings).mockReset().mockResolvedValue({
+      channel_id: "channel-1",
+      threshold: 1,
+    });
   });
 
   it("ignores bots", async () => {
@@ -261,10 +272,42 @@ describe("handleReactionAdd", () => {
 
   it("returns when the star count is below the threshold", async () => {
     const message = makeMessage({
-      reactions: { cache: { get: () => ({ count: STARBOARD_THRESHOLD - 1 }) } },
+      reactions: { cache: { get: () => ({ count: 0 }) } },
     });
     await starboardHandler.handleReactionAdd(makeReaction(message), makeUser());
     expect(message.guild?.channels.fetch).not.toHaveBeenCalled();
+  });
+
+  it("does not post when no starboard channel is configured", async () => {
+    vi.mocked(starboardService.getSettings).mockResolvedValue({ channel_id: "", threshold: 1 });
+    const message = makeMessage({
+      reactions: { cache: { get: () => ({ count: 5 }) } },
+    });
+    await starboardHandler.handleReactionAdd(makeReaction(message), makeUser());
+    expect(message.guild?.channels.fetch).not.toHaveBeenCalled();
+    expect(starboardDb.addPost).not.toHaveBeenCalled();
+  });
+
+  it("uses the per-guild threshold from settings", async () => {
+    const channel = makeChannel();
+    const message = makeMessage({
+      guild: { id: "guild-1", channels: { fetch: vi.fn(async () => channel) } },
+      reactions: { cache: { get: () => ({ count: 3 }) } },
+    });
+    vi.mocked(starboardService.getSettings).mockResolvedValue({ channel_id: "channel-1", threshold: 5 });
+    await starboardHandler.handleReactionAdd(makeReaction(message), makeUser());
+    expect(message.guild?.channels.fetch).not.toHaveBeenCalled();
+  });
+
+  it("uses the per-guild channel from settings", async () => {
+    const channel = makeChannel();
+    const message = makeMessage({
+      guild: { id: "guild-1", channels: { fetch: vi.fn(async () => channel) } },
+      reactions: { cache: { get: () => ({ count: 5 }) } },
+    });
+    vi.mocked(starboardService.getSettings).mockResolvedValue({ channel_id: "channel-2", threshold: 1 });
+    await starboardHandler.handleReactionAdd(makeReaction(message), makeUser());
+    expect(message.guild?.channels.fetch).toHaveBeenCalledWith("channel-2");
   });
 
   it("returns when the starboard channel cannot be fetched", async () => {

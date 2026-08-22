@@ -1,9 +1,8 @@
 import { EmbedBuilder, type Message, type MessageReaction, type TextChannel, type User } from "discord.js";
 import { starboardDb } from "@genesis/db";
+import { starboardService } from "@genesis/services";
 
 export const STAR_EMOJI = "⭐";
-export const STARBOARD_CHANNEL_ID = "1538967333828042833";
-export const STARBOARD_THRESHOLD = 1;
 
 export async function getStarCount(message: Message): Promise<number> {
   await message.fetch().catch(() => null);
@@ -102,11 +101,19 @@ async function handleReactionAdd(reaction: MessageReaction, user: User) {
 
   const starCount = await getStarCount(message);
 
-  if (starCount < STARBOARD_THRESHOLD) {
+  const settings = await starboardService.getSettings(guild.id);
+  const threshold = settings.threshold;
+  const channelId = settings.channel_id;
+
+  if (!channelId) {
     return;
   }
 
-  const fetchedChannel = await guild.channels.fetch(STARBOARD_CHANNEL_ID).catch(() => null);
+  if (starCount < threshold) {
+    return;
+  }
+
+  const fetchedChannel = await guild.channels.fetch(channelId).catch(() => null);
 
   if (!fetchedChannel?.isTextBased()) {
     return;
