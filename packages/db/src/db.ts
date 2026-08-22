@@ -75,3 +75,12 @@ db.exec(`
     PRIMARY KEY (guild_id, message_id)
   )
 `);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS starboard_settings (
+    guild_id TEXT NOT NULL,
+    channel_id TEXT NOT NULL DEFAULT '',
+    threshold INTEGER NOT NULL DEFAULT 1,
+    PRIMARY KEY (guild_id)
+  )
+`);
