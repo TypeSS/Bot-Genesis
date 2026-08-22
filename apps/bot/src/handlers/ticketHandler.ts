@@ -39,6 +39,11 @@ const rows: Record<string, ActionRowBuilder<ActionRowComponent>> = {
       .setPlaceholder("Seleciona o motivo")
       .addOptions(
         new StringSelectMenuOptionBuilder()
+          .setLabel("Minecraft")
+          .setDescription("Recebe acesso ao servidor de Minecraft.")
+          .setEmoji("⛏️")
+          .setValue("minecraft"),
+        new StringSelectMenuOptionBuilder()
           .setLabel("Dúvida")
           .setDescription("Tira dúvidas acerca do servidor.")
           .setEmoji("❓")
@@ -154,10 +159,19 @@ export async function handleTicketRequest(interaction: Interaction) {
   await interaction.showModal(makeModal);
 }
 
-async function handleSupportTicketCreation(interaction: ModalSubmitInteraction, type: string) {
-  const reason = interaction.fields.getTextInputValue("reason");
+const typeNames = {
+  "minecraft": "Minecraft",
+  "question": "Dúvida",
+  "report": "Queixa",
+  "other": "Outro"
+}
 
-  const typeName = type === "question" ? "Dúvida" : type === "report" ? "Queixa" : "Outro";
+type TicketType = keyof typeof typeNames;
+
+async function handleSupportTicketCreation(interaction: ModalSubmitInteraction, type: TicketType) {
+  const reason = interaction.fields.getTextInputValue("reason");
+  
+  const typeName = typeNames[type];
 
   const channel = interaction.channel as TextChannel;
   const ticketName = `${typeName} — ${interaction.user.username}`;
@@ -247,7 +261,7 @@ export async function handleTicketCreation(interaction: Interaction) {
 
   switch (modalData[0]) {
     case "support":
-      await handleSupportTicketCreation(interaction, modalData[1]);
+      await handleSupportTicketCreation(interaction, modalData[1] as TicketType);
       break;
     case "gala":
       await handleGalaTicketCreation(interaction);
