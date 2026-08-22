@@ -19,6 +19,9 @@ import { headers } from "next/headers";
 
 export default async function Profile() {
   const session = await auth.api.getSession({ headers: await headers() });
+  if (!session || !session.user) {
+    return <DiscordLogin />;
+  }
   return (
     <LoggedIn
       is={
@@ -28,8 +31,8 @@ export default async function Profile() {
               width={512}
               height={512}
               className="h-full w-auto rounded-full border border-[#242424] hover:cursor-pointer"
-              src={session?.user?.image!}
-              alt={session?.user?.name!}
+              src={session.user.image ?? ""}
+              alt={session.user.name}
             />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-40" align="end">

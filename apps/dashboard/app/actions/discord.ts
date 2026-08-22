@@ -1,5 +1,7 @@
 "use server";
 
+import type { DiscordChannel, Role } from "@/lib/types";
+
 export async function getBotGuilds() {
   const req = await fetch("https://discord.com/api/v10/users/@me/guilds?with_counts=true", {
     headers: {
@@ -35,7 +37,7 @@ export async function getGuildRoles(guildId: string) {
       revalidate: 60,
     },
   });
-  return await res.json();
+  return (await res.json()) as Role[];
 }
 
 export async function getGuildChannels(guildId: string) {
@@ -47,10 +49,10 @@ export async function getGuildChannels(guildId: string) {
       revalidate: 60,
     },
   });
-  return await res.json();
+  return (await res.json()) as DiscordChannel[];
 }
 
-export async function sendEmbed(channelId: string, embedData: any) {
+export async function sendEmbed(channelId: string, embedData: unknown) {
   const res = await fetch(`https://discord.com/api/v10/channels/${channelId}/messages`, {
     method: "POST",
     headers: {

@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Guild } from "@/lib/types";
+import { DiscordChannel, Guild } from "@/lib/types";
 import { TbInfoCircle } from "react-icons/tb";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
@@ -29,11 +29,11 @@ const formSchema = z.object({
 });
 
 export default function Embeds({ guild }: { guild: Guild }) {
-  const [channels, setChannels] = useState([]);
+  const [channels, setChannels] = useState<DiscordChannel[]>([]);
 
   useEffect(() => {
     getGuildChannels(guild.id).then((res) => {
-      const textChannels = res.filter((channel: any) => channel.type === 0);
+      const textChannels = res.filter((channel) => channel.type === 0);
       setChannels(textChannels);
     });
   }, [guild.id]);
@@ -94,7 +94,7 @@ export default function Embeds({ guild }: { guild: Guild }) {
                 <SelectContent className="z-100">
                   <SelectGroup>
                     <SelectLabel>Canais</SelectLabel>
-                    {channels.map((channel: any) => (
+                    {channels.map((channel) => (
                       <SelectItem
                         key={channel.id}
                         value={channel.id}

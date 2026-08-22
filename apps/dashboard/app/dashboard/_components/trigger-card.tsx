@@ -15,7 +15,15 @@ import { Field, FieldError, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Role } from "@/lib/types";
 import { Button } from "@base-ui/react";
-import { Controller } from "react-hook-form";
+import { Controller, UseFormReturn } from "react-hook-form";
+
+export type TriggerFormValues = {
+  triggers: {
+    id: string;
+    content: string;
+    allowed_roles: string[];
+  }[];
+};
 
 export default function TriggerCard({
   roles,
@@ -24,7 +32,7 @@ export default function TriggerCard({
   remove,
 }: {
   roles: Role[];
-  form: any;
+  form: UseFormReturn<TriggerFormValues>;
   index: number;
   remove: (index: number) => void;
 }) {

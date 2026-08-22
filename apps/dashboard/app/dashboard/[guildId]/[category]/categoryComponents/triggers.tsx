@@ -1,13 +1,13 @@
 "use client";
 
 import { getGuildRoles } from "@/app/actions/discord";
-import TriggerCard from "@/app/dashboard/_components/trigger-card";
-import { Guild } from "@/lib/types";
+import TriggerCard, { TriggerFormValues } from "@/app/dashboard/_components/trigger-card";
+import { Guild, Role } from "@/lib/types";
 import { addTrigger, deleteTrigger, getAllTriggers } from "@/app/actions/triggers";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Trigger } from "@genesis/core";
 import { Card, CardAction, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,10 +24,9 @@ const formSchema = z.object({
 
 export default function Triggers({ guild }: { guild: Guild }) {
   const [triggers, setTriggers] = useState<Trigger[]>([]);
-  const [roles, setRoles] = useState([]);
-  const [hasChanged, setHasChanged] = useState(false);
+  const [roles, setRoles] = useState<Role[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<TriggerFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       triggers: [],
@@ -42,7 +41,7 @@ export default function Triggers({ guild }: { guild: Guild }) {
   useEffect(() => {
     async function load() {
       const [triggers, roles] = await Promise.all([
-        await getAllTriggers(guild.id),
+        getAllTriggers(guild.id),
         getGuildRoles(guild.id),
       ]);
 
@@ -66,14 +65,14 @@ export default function Triggers({ guild }: { guild: Guild }) {
     }
 
     load();
-  }, [guild.id, form]);
+  }, [append, form, guild.id]);
 
   const currentData = useWatch({
     control: form.control,
     name: "triggers",
   });
 
-  useEffect(() => {
+  const hasChanged = useMemo(() => {
     const originalData = [...triggers];
     originalData.push({
       id: "",
@@ -81,12 +80,8 @@ export default function Triggers({ guild }: { guild: Guild }) {
       allowed_roles: [],
     });
 
-    if (JSON.stringify(originalData) !== JSON.stringify(currentData)) {
-      setHasChanged(true);
-    } else {
-      setHasChanged(false);
-    }
-  }, [currentData]);
+    return JSON.stringify(originalData) !== JSON.stringify(currentData);
+  }, [currentData, triggers]);
 
   return (
     <div className="relative h-full">

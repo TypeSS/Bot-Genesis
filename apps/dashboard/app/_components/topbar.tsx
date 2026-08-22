@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import logo from "../../assets/genesisportugal_logo.svg";
 import Profile from "./topbarprofile";
 
@@ -8,7 +9,7 @@ export default function TopBar() {
       className="fixed left-0 top-0 flex flex-row w-screen h-20 bg-[#0f0f0f] border-b 
       border-[#242424] p-4 justify-between"
     >
-      <a
+      <Link
         className="relative h-full flex flex-row gap-1 items-baseline font-sans font-black
         hover:cursor-pointer
         "
@@ -16,7 +17,7 @@ export default function TopBar() {
       >
         <Image src={logo} className="h-full w-auto" alt="genesis portugal logo" />
         <p>.bot</p>
-      </a>
+      </Link>
       <div className="relative h-full">
         <Profile />
       </div>

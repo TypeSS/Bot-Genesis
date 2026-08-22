@@ -16,6 +16,12 @@ export type Role = {
   name: string;
 };
 
+export type DiscordChannel = {
+  id: string;
+  name: string;
+  type: number;
+};
+
 export type SidebarTab = {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   subTabs: {
