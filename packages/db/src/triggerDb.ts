@@ -52,8 +52,6 @@ function getAllTriggers(guild_id: string): TriggerRow[] {
 
   const triggers = getAllTriggersStatement.all(guild_id) as TriggerRow[];
 
-  console.log(triggers);
-
   return triggers;
 }
 
