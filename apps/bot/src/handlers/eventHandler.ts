@@ -13,7 +13,8 @@ export async function loadEvents(client: Client) {
       (file) =>
         [".js", ".ts"].includes(extname(file)) &&
         !file.endsWith(".d.ts") &&
-        !file.endsWith(".test.ts"),
+        !file.endsWith(".test.ts") &&
+        !file.endsWith(".test.js"),
     );
 
   for (const file of eventFiles) {
